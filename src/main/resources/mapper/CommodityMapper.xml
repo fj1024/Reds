@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redtravel.dao.CommodityMapper">
+  <resultMap id="BaseResultMap" type="com.redtravel.bean.Commodity">
+    <result column="commodityId" jdbcType="INTEGER" property="commodityid" />
+    <result column="commodityName" jdbcType="VARCHAR" property="commodityname" />
+    <result column="commodityPrice" jdbcType="INTEGER" property="commodityprice" />
+    <result column="commodityPicture" jdbcType="VARCHAR" property="commoditypicture" />
+    <result column="commodityLocation" jdbcType="VARCHAR" property="commoditylocation" />
+    <result column="commodityRemark" jdbcType="VARCHAR" property="commodityremark" />
+    <result column="commodityDetail" jdbcType="VARCHAR" property="commoditydetail" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    commodityId, commodityName, commodityPrice, commodityPicture, commodityLocation, 
+    commodityRemark, commodityDetail
+  </sql>
+  <select id="selectByExample" parameterType="com.redtravel.bean.CommodityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from commodity
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.redtravel.bean.CommodityExample">
+    delete from commodity
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.redtravel.bean.Commodity">
+    insert into commodity (commodityId, commodityName, commodityPrice, 
+      commodityPicture, commodityLocation, commodityRemark, 
+      commodityDetail)
+    values (#{commodityid,jdbcType=INTEGER}, #{commodityname,jdbcType=VARCHAR}, #{commodityprice,jdbcType=INTEGER}, 
+      #{commoditypicture,jdbcType=VARCHAR}, #{commoditylocation,jdbcType=VARCHAR}, #{commodityremark,jdbcType=VARCHAR}, 
+      #{commoditydetail,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.redtravel.bean.Commodity">
+    insert into commodity
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="commodityid != null">
+        commodityId,
+      </if>
+      <if test="commodityname != null">
+        commodityName,
+      </if>
+      <if test="commodityprice != null">
+        commodityPrice,
+      </if>
+      <if test="commoditypicture != null">
+        commodityPicture,
+      </if>
+      <if test="commoditylocation != null">
+        commodityLocation,
+      </if>
+      <if test="commodityremark != null">
+        commodityRemark,
+      </if>
+      <if test="commoditydetail != null">
+        commodityDetail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="commodityid != null">
+        #{commodityid,jdbcType=INTEGER},
+      </if>
+      <if test="commodityname != null">
+        #{commodityname,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityprice != null">
+        #{commodityprice,jdbcType=INTEGER},
+      </if>
+      <if test="commoditypicture != null">
+        #{commoditypicture,jdbcType=VARCHAR},
+      </if>
+      <if test="commoditylocation != null">
+        #{commoditylocation,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityremark != null">
+        #{commodityremark,jdbcType=VARCHAR},
+      </if>
+      <if test="commoditydetail != null">
+        #{commoditydetail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.redtravel.bean.CommodityExample" resultType="java.lang.Long">
+    select count(*) from commodity
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update commodity
+    <set>
+      <if test="record.commodityid != null">
+        commodityId = #{record.commodityid,jdbcType=INTEGER},
+      </if>
+      <if test="record.commodityname != null">
+        commodityName = #{record.commodityname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commodityprice != null">
+        commodityPrice = #{record.commodityprice,jdbcType=INTEGER},
+      </if>
+      <if test="record.commoditypicture != null">
+        commodityPicture = #{record.commoditypicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commoditylocation != null">
+        commodityLocation = #{record.commoditylocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commodityremark != null">
+        commodityRemark = #{record.commodityremark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commoditydetail != null">
+        commodityDetail = #{record.commoditydetail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update commodity
+    set commodityId = #{record.commodityid,jdbcType=INTEGER},
+      commodityName = #{record.commodityname,jdbcType=VARCHAR},
+      commodityPrice = #{record.commodityprice,jdbcType=INTEGER},
+      commodityPicture = #{record.commoditypicture,jdbcType=VARCHAR},
+      commodityLocation = #{record.commoditylocation,jdbcType=VARCHAR},
+      commodityRemark = #{record.commodityremark,jdbcType=VARCHAR},
+      commodityDetail = #{record.commoditydetail,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

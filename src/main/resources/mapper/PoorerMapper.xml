@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redtravel.dao.PoorerMapper">
+  <resultMap id="BaseResultMap" type="com.redtravel.bean.Poorer">
+    <result column="poorerId" jdbcType="INTEGER" property="poorerid" />
+    <result column="poorerName" jdbcType="VARCHAR" property="poorername" />
+    <result column="poorerLocation" jdbcType="VARCHAR" property="poorerlocation" />
+    <result column="poorerDetail" jdbcType="VARCHAR" property="poorerdetail" />
+    <result column="poorerPicture" jdbcType="VARCHAR" property="poorerpicture" />
+    <result column="poorerLevel" jdbcType="VARCHAR" property="poorerlevel" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    poorerId, poorerName, poorerLocation, poorerDetail, poorerPicture, poorerLevel
+  </sql>
+  <select id="selectByExample" parameterType="com.redtravel.bean.PoorerExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from poorer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.redtravel.bean.PoorerExample">
+    delete from poorer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.redtravel.bean.Poorer">
+    insert into poorer (poorerId, poorerName, poorerLocation, 
+      poorerDetail, poorerPicture, poorerLevel
+      )
+    values (#{poorerid,jdbcType=INTEGER}, #{poorername,jdbcType=VARCHAR}, #{poorerlocation,jdbcType=VARCHAR}, 
+      #{poorerdetail,jdbcType=VARCHAR}, #{poorerpicture,jdbcType=VARCHAR}, #{poorerlevel,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.redtravel.bean.Poorer">
+    insert into poorer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="poorerid != null">
+        poorerId,
+      </if>
+      <if test="poorername != null">
+        poorerName,
+      </if>
+      <if test="poorerlocation != null">
+        poorerLocation,
+      </if>
+      <if test="poorerdetail != null">
+        poorerDetail,
+      </if>
+      <if test="poorerpicture != null">
+        poorerPicture,
+      </if>
+      <if test="poorerlevel != null">
+        poorerLevel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="poorerid != null">
+        #{poorerid,jdbcType=INTEGER},
+      </if>
+      <if test="poorername != null">
+        #{poorername,jdbcType=VARCHAR},
+      </if>
+      <if test="poorerlocation != null">
+        #{poorerlocation,jdbcType=VARCHAR},
+      </if>
+      <if test="poorerdetail != null">
+        #{poorerdetail,jdbcType=VARCHAR},
+      </if>
+      <if test="poorerpicture != null">
+        #{poorerpicture,jdbcType=VARCHAR},
+      </if>
+      <if test="poorerlevel != null">
+        #{poorerlevel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.redtravel.bean.PoorerExample" resultType="java.lang.Long">
+    select count(*) from poorer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update poorer
+    <set>
+      <if test="record.poorerid != null">
+        poorerId = #{record.poorerid,jdbcType=INTEGER},
+      </if>
+      <if test="record.poorername != null">
+        poorerName = #{record.poorername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.poorerlocation != null">
+        poorerLocation = #{record.poorerlocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.poorerdetail != null">
+        poorerDetail = #{record.poorerdetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.poorerpicture != null">
+        poorerPicture = #{record.poorerpicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.poorerlevel != null">
+        poorerLevel = #{record.poorerlevel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update poorer
+    set poorerId = #{record.poorerid,jdbcType=INTEGER},
+      poorerName = #{record.poorername,jdbcType=VARCHAR},
+      poorerLocation = #{record.poorerlocation,jdbcType=VARCHAR},
+      poorerDetail = #{record.poorerdetail,jdbcType=VARCHAR},
+      poorerPicture = #{record.poorerpicture,jdbcType=VARCHAR},
+      poorerLevel = #{record.poorerlevel,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

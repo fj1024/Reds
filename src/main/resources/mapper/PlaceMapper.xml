@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redtravel.dao.PlaceMapper">
+  <resultMap id="BaseResultMap" type="com.redtravel.bean.Place">
+    <result column="placeId" jdbcType="INTEGER" property="placeid" />
+    <result column="placeName" jdbcType="VARCHAR" property="placename" />
+    <result column="placeDescription" jdbcType="VARCHAR" property="placedescription" />
+    <result column="placeLacation" jdbcType="VARCHAR" property="placelacation" />
+    <result column="placeRank" jdbcType="VARCHAR" property="placerank" />
+    <result column="placeRemark" jdbcType="VARCHAR" property="placeremark" />
+    <result column="placePicture" jdbcType="VARCHAR" property="placepicture" />
+    <result column="placeContact" jdbcType="VARCHAR" property="placecontact" />
+    <result column="placeAttraction" jdbcType="VARCHAR" property="placeattraction" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    placeId, placeName, placeDescription, placeLacation, placeRank, placeRemark, placePicture, 
+    placeContact, placeAttraction
+  </sql>
+  <select id="selectByExample" parameterType="com.redtravel.bean.PlaceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from place
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.redtravel.bean.PlaceExample">
+    delete from place
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.redtravel.bean.Place">
+    insert into place (placeId, placeName, placeDescription, 
+      placeLacation, placeRank, placeRemark, 
+      placePicture, placeContact, placeAttraction
+      )
+    values (#{placeid,jdbcType=INTEGER}, #{placename,jdbcType=VARCHAR}, #{placedescription,jdbcType=VARCHAR}, 
+      #{placelacation,jdbcType=VARCHAR}, #{placerank,jdbcType=VARCHAR}, #{placeremark,jdbcType=VARCHAR}, 
+      #{placepicture,jdbcType=VARCHAR}, #{placecontact,jdbcType=VARCHAR}, #{placeattraction,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.redtravel.bean.Place">
+    insert into place
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="placeid != null">
+        placeId,
+      </if>
+      <if test="placename != null">
+        placeName,
+      </if>
+      <if test="placedescription != null">
+        placeDescription,
+      </if>
+      <if test="placelacation != null">
+        placeLacation,
+      </if>
+      <if test="placerank != null">
+        placeRank,
+      </if>
+      <if test="placeremark != null">
+        placeRemark,
+      </if>
+      <if test="placepicture != null">
+        placePicture,
+      </if>
+      <if test="placecontact != null">
+        placeContact,
+      </if>
+      <if test="placeattraction != null">
+        placeAttraction,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="placeid != null">
+        #{placeid,jdbcType=INTEGER},
+      </if>
+      <if test="placename != null">
+        #{placename,jdbcType=VARCHAR},
+      </if>
+      <if test="placedescription != null">
+        #{placedescription,jdbcType=VARCHAR},
+      </if>
+      <if test="placelacation != null">
+        #{placelacation,jdbcType=VARCHAR},
+      </if>
+      <if test="placerank != null">
+        #{placerank,jdbcType=VARCHAR},
+      </if>
+      <if test="placeremark != null">
+        #{placeremark,jdbcType=VARCHAR},
+      </if>
+      <if test="placepicture != null">
+        #{placepicture,jdbcType=VARCHAR},
+      </if>
+      <if test="placecontact != null">
+        #{placecontact,jdbcType=VARCHAR},
+      </if>
+      <if test="placeattraction != null">
+        #{placeattraction,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.redtravel.bean.PlaceExample" resultType="java.lang.Long">
+    select count(*) from place
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update place
+    <set>
+      <if test="record.placeid != null">
+        placeId = #{record.placeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.placename != null">
+        placeName = #{record.placename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.placedescription != null">
+        placeDescription = #{record.placedescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.placelacation != null">
+        placeLacation = #{record.placelacation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.placerank != null">
+        placeRank = #{record.placerank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.placeremark != null">
+        placeRemark = #{record.placeremark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.placepicture != null">
+        placePicture = #{record.placepicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.placecontact != null">
+        placeContact = #{record.placecontact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.placeattraction != null">
+        placeAttraction = #{record.placeattraction,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update place
+    set placeId = #{record.placeid,jdbcType=INTEGER},
+      placeName = #{record.placename,jdbcType=VARCHAR},
+      placeDescription = #{record.placedescription,jdbcType=VARCHAR},
+      placeLacation = #{record.placelacation,jdbcType=VARCHAR},
+      placeRank = #{record.placerank,jdbcType=VARCHAR},
+      placeRemark = #{record.placeremark,jdbcType=VARCHAR},
+      placePicture = #{record.placepicture,jdbcType=VARCHAR},
+      placeContact = #{record.placecontact,jdbcType=VARCHAR},
+      placeAttraction = #{record.placeattraction,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
